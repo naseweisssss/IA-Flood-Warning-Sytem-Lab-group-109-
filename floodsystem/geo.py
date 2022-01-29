@@ -46,6 +46,9 @@ def stations_by_river(stations):
 
 
 def rivers_by_station_number(stations, N):
+    """
+    This function return the N rivers with greatest number of monitoring stations
+    """
     list_of_rivers = []
     
     rivers_dict = stations_by_river(stations)
