@@ -27,4 +27,5 @@ if __name__ == "__main__":
 
     
     print("---Demonstration 1 --- for task 1C")
+    print("The station within radius are")
     run()
