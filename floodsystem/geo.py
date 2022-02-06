@@ -10,6 +10,7 @@ geographical data.
 from .station import MonitoringStation
 from .stationdata import build_station_list
 from .utils import sorted_by_key
+from haversine import haversine
 
 
 def rivers_with_station(stations):
@@ -58,5 +59,18 @@ def rivers_by_station_number(stations, N):
     return list_of_rivers[0:N]
    
     
+def stations_by_distance (stations, p):
+    """
+    This function returns a sorted list of (station, distance) tuple
+    """
 
-# print(rivers_by_station_number(stations, 10))
+    stations_and_distance = []
+    sorted_list = []
+    for item in stations:
+        distance_calc = haversine(item.coord, p)
+        stations_and_distance.append((item, distance_calc))
+    sorted_list  = sorted_by_key (stations_and_distance, 1)
+
+    return sorted_list 
+
+

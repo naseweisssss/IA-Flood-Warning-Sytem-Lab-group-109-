@@ -1,5 +1,5 @@
 from floodsystem.stationdata import build_station_list
-from floodsystem.geo import rivers_with_station, stations_by_river, rivers_by_station_number
+from floodsystem.geo import rivers_with_station, stations_by_river, rivers_by_station_number, stations_by_distance
 from floodsystem.station import MonitoringStation
 
 def test_rivers_with_station():
@@ -33,4 +33,11 @@ def test_rivers_by_station_number():
         assert isinstance(item[0], str)
         assert isinstance(item[1], int)
     
-    
+def test_stations_by_distance():
+    stations = build_station_list()
+    station_testing = stations_by_distance(stations, (52.2053, 0.1218))
+    assert isinstance(station_testing, list)
+    for item in station_testing:
+        assert isinstance(item, tuple)
+        assert isinstance(item[0], MonitoringStation)
+        assert isinstance(item[1], float)
