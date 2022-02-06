@@ -16,6 +16,11 @@ def run():
     print("The closest 10 stations is" + " " +str(ten_closest))
     print("The furthest 10 station is " + " " + str(ten_furthest))
 if __name__ == "__main__":
-    print("*****Task1B*****")
+    """
+    Define the function to run the demonstration code
+    """
+
+    
+    print("---Demonstration 1 --- for task 1D")
     run()
 

@@ -72,5 +72,15 @@ def stations_by_distance (stations, p):
     sorted_list  = sorted_by_key (stations_and_distance, 1)
 
     return sorted_list 
-
+def stations_within_radius(stations, centre, r):
+    """
+    This function return the station within the required radius
+    """
+    stations_within_radius = []
+    stations_and_distance = stations_by_distance(stations, centre)
+    for station, distance in stations_and_distance:
+        if distance < r:
+            stations_within_radius.append(station)
+    return stations_within_radius
+   
 
