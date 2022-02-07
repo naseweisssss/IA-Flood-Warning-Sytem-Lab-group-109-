@@ -50,13 +50,21 @@ def rivers_by_station_number(stations, N):
     """
     This function return the N rivers with greatest number of monitoring stations
     """
-    list_of_rivers = []
-    
-    rivers_dict = stations_by_river(stations)
-    for i in range (len(rivers_dict)):
-        list_of_rivers.append((list(rivers_dict.keys())[i], len(list(rivers_dict.keys())[i])) )
-    list_of_rivers = sorted_by_key(list_of_rivers,1, reverse = True)
-    return list_of_rivers[0:N]
+    rivers_to_stations_dict = stations_by_river(stations)
+    rivers_tuples = []
+
+    for key, listofstations in rivers_to_stations_dict.items():
+        rivers_tuples.append((key, len(listofstations)))
+    rivers_tuples.sort(key=lambda t : t[1], reverse=True)
+
+    # Check if there are more rivers with the same number of stations as the N th entry
+    k = N-1
+    while True:
+        if rivers_tuples[k][1] == rivers_tuples[k+1][1]:
+            k+=1
+        else:
+            break
+    return rivers_tuples[:k+1]
    
     
 def stations_by_distance (stations, p):
