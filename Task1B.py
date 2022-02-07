@@ -21,6 +21,6 @@ if __name__ == "__main__":
     """
 
     
-    print("---Demonstration 1 --- for task 1D")
+    print("---Demonstration 1 --- for task 1B")
     run()
 
