@@ -12,7 +12,7 @@ def test_build_station_list():
     assert len(station_list) > 0
 
 
-def test_update_level():
+def test_update_water_level():
     """Test update to latest water level"""
 
     # Build list of stations
