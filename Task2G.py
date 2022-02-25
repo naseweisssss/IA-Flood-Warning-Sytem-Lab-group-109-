@@ -7,48 +7,50 @@ from floodsystem.plot import plot_water_level_with_fit
 from floodsystem.flood import stations_highest_rel_level
 from statistics import mean
 
+def run():
+    # A reasonable time to notice a flood would be around 5 days
+    day_to_detect = 5
+    stations = build_station_list()
+    stations_copy = list()
+    town_at_severe_risk = list()
+    town_at_high_risk = list()
+    town_at_moderate_risk = list()
+    town_at_low_risk = list()
 
-# A reasonable time to notice a flood would be around 5 days
-day_to_detect = 5
-stations = build_station_list()
-stations_copy = list()
-town_at_severe_risk = list()
-town_at_high_risk = list()
-town_at_moderate_risk = list()
-town_at_low_risk = list()
+    # finding list of stations that has the highest risk
+    # The risk are categorized into 4 quartile, by using stations_highest_rel_level function
+    update_water_levels(stations)
+    station_at_severe_risk = stations_highest_rel_level(stations, len(stations)//4)
+    for item in station_at_severe_risk:
+        town_at_severe_risk.append(item.town)
 
-# finding list of stations that has the highest risk
-update_water_levels(stations)
-station_at_severe_risk = stations_highest_rel_level(stations, len(stations)//4)
-for item in station_at_severe_risk:
-    town_at_severe_risk.append(item.town)
+    station_at_high_risk = stations_highest_rel_level(stations, len(stations)//2)
+    for item in station_at_high_risk:
+        if item not in station_at_severe_risk:
+            town_at_high_risk.append(item.town)
 
-station_at_high_risk = stations_highest_rel_level(stations, len(stations)//2)
-for item in station_at_high_risk:
-    if item not in station_at_severe_risk:
-        town_at_high_risk.append(item.town)
+    station_at_moderate_risk = stations_highest_rel_level(stations, round(len(stations)*0.75))
+    for item in station_at_moderate_risk:
+        if item not in station_at_high_risk and station_at_severe_risk:
+            town_at_moderate_risk.append(item.town)
 
-station_at_moderate_risk = stations_highest_rel_level(stations, round(len(stations)*0.75))
-for item in station_at_moderate_risk:
-    if item not in station_at_high_risk and station_at_severe_risk:
-        town_at_moderate_risk.append(item.town)
+    if item not in station_at_high_risk and station_at_moderate_risk and station_at_severe_risk:
+        town_at_low_risk.append(item.town)
 
-if item not in station_at_high_risk and station_at_moderate_risk and station_at_severe_risk:
-    town_at_low_risk.append(item.town)
-# for item in station_at_severe_risk:
-#     town_at_severe_risk.append(item.town)
-print("The town at severe risk are")
-print(town_at_severe_risk)
-print("The town at high risk are")
-print(town_at_high_risk)
-print("The town at moderate risk are")
-print(town_at_moderate_risk)
-print("The town at low risk are")
-print(town_at_low_risk)
-# print(town_at_severe_risk)
+    print("The town at severe risk are")
+    print(town_at_severe_risk)
+    print("The town at high risk are")
+    print(town_at_high_risk)
+    print("The town at moderate risk are")
+    print(town_at_moderate_risk)
+    print("The town at low risk are")
+    print(town_at_low_risk)
+    
 
     
-    
+if __name__ == "__main__":
+    print("---Demonstration 1 --- for task 2G")
+    run()
     
     
     # for x1, x2 in zip(levels[:-1], levels[1:]):
